@@ -1,0 +1,65 @@
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    
+    public static Random r = new Random();
+    
+    public static int eval(int op, int op1, int op2){
+        
+        int answer = 0;
+        
+        if (op == 0){
+            answer = op1 + op2;
+            System.out.printf("%d + %d = ", op1, op2);
+        }else if (op == 1){
+            answer = op1 - op2;
+            System.out.printf("%d - %d = ", op1, op2);
+        }else if (op == 2){
+            answer = op1 * op2;
+            System.out.printf("%d * %d = ", op1, op2);
+        }else if (op == 3){
+            answer = op1 / op2;
+            System.out.printf("%d / %d = ", op1, op2);
+        }
+        
+        return answer;
+    }
+    
+    public static int randOp(){
+        return r.nextInt(4);
+    }
+    
+    public static int randInt(int low, int high){
+        int x = high - low;
+        int y = r.nextInt(x);
+        return (high - y);
+        }
+    
+    
+    public static void main(String[] args){
+        
+        int numCorrect = 0;
+        
+        Scanner s = new Scanner(System.in);
+        System.out.print("Enter the number of problems you wish to answer: ");
+        int numProbs = s.nextInt();
+        
+        System.out.printf("%d\n", numProbs);
+        
+        
+        
+        // int j = randOp();
+        // System.out.print(j);
+        
+        // int k = randInt(-20, 20);
+        // System.out.print(k);
+        
+        int ans = eval(randOp(), randInt(-20,20), randInt(-20,20));
+        
+        int userResponse = s.nextInt();
+        System.out.printf("\n%d", userResponse);
+    }
+    
+    
+}
