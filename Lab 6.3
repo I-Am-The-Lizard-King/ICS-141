@@ -1,0 +1,73 @@
+
+
+import java.util.*;
+
+public class Main
+{
+
+    /*
+      return true if the character c is a digit.  
+      '0', '1', '2', '3','4','5','6','7','8', 
+      and '9' are digits.
+      Estimate time: 5-10 minutes
+    */
+    
+    static boolean isDigit(char c){
+        //TO: write code to return true if c is a digit
+        //    and false if c is not a digit.
+        if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5'
+        || c == '6' || c == '7' || c == '8' || c == '9'){
+            return true;
+        }
+        return false;
+    }
+    
+    /*
+    Return true if the string s is a number.
+    Return false otherwise.
+    A string is a number if it contains only digits.  
+    Estimate time: 5-20 minutes
+    */
+    static boolean isNumber(String s){
+        //TODO: write code to return true if s is a number.
+        //char num = 'y';
+        for (int i = 0; i < s.length(); i++){
+            boolean well = isDigit(s.charAt(i));
+            if (!well){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /*
+    Read any number of string from the user
+    and print if the string is a number or not a number.
+    Estimate time: 5-15 minutes
+    */
+	public static void main(String[] args) {
+	    Scanner s = new Scanner(System.in);
+	    while(s.hasNext()){
+	        String input = s.next();
+	        //TODO: check if input is a number.  
+	        //      print whether it's a number or not a number.
+	        //      see sample run.
+	        
+	       // for (int i = 0; i < input.length(); i++){
+	       //     char c = input.charAt(i);
+	       //     System.out.printf("%b\n", isDigit(c));
+	        
+	        //}
+	        boolean result = isNumber(input);
+	        
+	        if (result){
+	            System.out.printf("\"%s\" is a number\n", input);
+	        }
+	        else {
+	            System.out.printf("\"%s\" is NOT a number\n", input);
+	        }
+	        
+	        
+	    }
+	}
+}
