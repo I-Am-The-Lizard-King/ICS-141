@@ -3,33 +3,51 @@ import java.io.*;
 
 public class Main {
     
+    //initialize random number generator r
     public static Random r = new Random();
     
-    public static int eval(int op, int op1, int op2){
+    //method to calculate arithemetic expression answer
+    public static int eval(int op/*, int op1, int op2*/){
         
+        //initialize answer variable
         int answer = 0;
         
-        if (op == 0){
-            answer = op1 + op2;
-            System.out.printf("%d + %d = ", op1, op2);
-        }else if (op == 1){
-            answer = op1 - op2;
-            System.out.printf("%d - %d = ", op1, op2);
-        }else if (op == 2){
-            answer = op1 * op2;
-            System.out.printf("%d * %d = ", op1, op2);
-        }else if (op == 3){
-            answer = op1 / op2;
-            System.out.printf("%d / %d = ", op1, op2);
-        }
+        //flag to indicate arithemetic exception, such as divide by zero
+        boolean ok = false;
         
+        //while loop to run until no arithemetic exception occurs
+        while (!ok){
+            try{
+                int op1 = randInt(-20,20);
+                int op2 = randInt(-20,20);
+                if (op == 0){
+                    answer = op1 + op2;
+                    System.out.printf("%d + %d = ", op1, op2);
+                }else if (op == 1){
+                    answer = op1 - op2;
+                    System.out.printf("%d - %d = ", op1, op2);
+                }else if (op == 2){
+                    answer = op1 * op2;
+                    System.out.printf("%d * %d = ", op1, op2);
+                }else if (op == 3){
+                    answer = op1 / op2;
+                    System.out.printf("%d / %d = ", op1, op2);
+                }
+                ok = true;
+            }catch (ArithmeticException ae) {
+                System.out.println("ArithmeticException occured!");
+            }
+        }
+        //return answer once loop runs correctly
         return answer;
     }
     
+    //method to generate 1 of 4 random integers, to be assigned to a math operator
     public static int randOp(){
         return r.nextInt(4);
     }
     
+    //method to generate a random integer between low & high values, inclusive
     public static int randInt(int low, int high){
         int x = high - low;
         int y = r.nextInt(x);
@@ -39,27 +57,38 @@ public class Main {
     
     public static void main(String[] args){
         
+        //set number correct counter to 0
         int numCorrect = 0;
         
+        //initialize scanner s
         Scanner s = new Scanner(System.in);
+        
+        //prompt user for number of problems they wish to answer
         System.out.print("Enter the number of problems you wish to answer: ");
+        //assign number of problems to variable
         int numProbs = s.nextInt();
         
-        System.out.printf("%d\n", numProbs);
+        //for loop to run the number of times user indicated
+        for (int i = 0; i < numProbs; i++){
+            
+            //generate a problem and answer for each loop
+            int ans = eval(randOp()/*, randInt(-20,20), randInt(-20,20)*/);
+            
+            //intake and assign user's input as their answer to the problem
+            int userResponse = s.nextInt();
+            
+            //if user answered correctly, iterate numCorrect and indicate correct answer
+            if (userResponse == ans){
+                numCorrect++;
+                System.out.printf("You got it.\n");
+                
+            //if user answered incorrectly, idicate so and display correct answer
+            }else{
+                System.out.printf("Wrong. It's %d\n", ans);
+            }
+        }
         
-        
-        
-        // int j = randOp();
-        // System.out.print(j);
-        
-        // int k = randInt(-20, 20);
-        // System.out.print(k);
-        
-        int ans = eval(randOp(), randInt(-20,20), randInt(-20,20));
-        
-        int userResponse = s.nextInt();
-        System.out.printf("\n%d", userResponse);
+        //display number of correct answers out of total
+        System.out.printf("You got %d out of %d.", numCorrect, numProbs);
     }
-    
-    
 }
