@@ -1,0 +1,163 @@
+import java.util.*;
+
+public class Main {
+    
+    private static Scanner s = new Scanner(System.in);
+    
+    /*Support up to 10 contacts*/
+    private static final int CAPACITY = 10;
+    
+    /* col 0 = email, col 1 = first, col 2 = last*/
+    private static String[][] contacts = new String[CAPACITY][3];
+    
+    /* current number of contacts*/
+    private static int count = 0;
+    
+    
+	public static void main(String[] args) {
+	    boolean exit = false;
+		loop: while(!exit){
+		    
+		    System.out.print("A)dd Contact S)earch L)ist D)elete E)xit:");
+		    String choice = s.nextLine();
+
+		    //call a method to handle the choice
+		    
+		    if (choice.equalsIgnoreCase("A")){
+		        add();
+		    }
+		    else if (choice.equalsIgnoreCase("S")){
+		        search();
+		    }
+		    else if (choice.equalsIgnoreCase("L")){
+		        list();
+		    }
+		    
+		    else if (choice.equalsIgnoreCase("D")){
+		        delete();
+		    }
+		    
+		    else if (choice.equalsIgnoreCase("E")){
+		        exit = true;
+		    }
+		}
+	}
+	
+    static void add(){
+        //if contact is full, print "Out of memory"
+        if (count == 10){
+            System.out.print("Out of memory");
+            return;
+        }
+        //otherwise, prompt for email, first, last name
+        
+        System.out.printf("%-8s", "Email:");
+        String email = s.nextLine();
+        System.out.printf("%-8s", "First:");
+        String first = s.nextLine();
+        System.out.printf("%-8s", "Last:");
+        String last = s.nextLine();
+        
+        //if email does not exist, add contact
+        for (int i = 0; i < contacts.length; i++){
+            if (contacts[i][0] != null){
+                if (contacts[i][0].equalsIgnoreCase(email)){
+                    return;
+                }
+            }
+        }
+        
+        for (int i = 0; i < contacts.length; i++){
+            if (contacts[i][0] == null){
+                contacts[i][0] = email;
+                contacts[i][1] = first;
+                contacts[i][2] = last;
+                count++;
+                return;
+            }
+        }
+        
+    }
+        
+    
+    
+    
+    static void search(){
+        
+        //prompt for email
+        System.out.printf("Email to search: ");
+        String email = s.nextLine();
+        
+        //boolean found = false;
+        
+        //search the list of contacts
+        for (int i = 0; i < contacts.length; i++){
+            if (contacts[i][0] != null){
+                if (contacts[i][0].equalsIgnoreCase(email)){
+                    
+                    System .out.printf("%s  %s  %s\n", contacts[i][0],
+                    contacts[i][1], contacts[i][2]);
+                    
+                    return;
+                }
+                
+                else{
+                    System.out.printf("%s is not found\n", email);
+                    return;
+                }
+            }
+        }
+    }
+    
+    static boolean contains(String email){
+        //search for email in the list 
+        //if found, return true.  otherwise, return false.
+        return false;
+    }
+    static void list(){
+        //print the list of contacts.
+        System.out.printf("%-30s\t%s\t\t%s\n", "EMAIL", "FIRST", "LAST");
+        for (int i = 0; i < contacts.length; i++){
+		    if (contacts[i][0] != null){
+		        System.out.printf("%-30s\t%s\t\t%s\n", contacts[i][0], contacts[i][1], contacts[i][2]);
+		    }
+		}
+    }
+    
+    static void delete(){
+        
+        int position = 0;
+        boolean found = false;
+        
+        System.out.printf("Email of contact to delete: ");
+        String email = s.nextLine();
+        
+        for (int i = 0; i < contacts.length; i++){
+            if (contacts[i][0] != null){
+                if (contacts[i][0].equalsIgnoreCase(email)){
+                    position = i;
+                    found = true;
+                }
+            }
+        }
+        
+        if(found){
+            for (int i = position; i < contacts.length; i++){
+                if (i == 9){
+                    contacts[i][0] = null;
+                    contacts[i][1] = null;
+                    contacts[i][2] = null;
+                    return;
+                }else{
+                    contacts[i][0] = contacts[i+1][0];
+                    contacts[i][1] = contacts[i+1][1];
+                    contacts[i][2] = contacts[i+1][2];
+                }
+            }
+        }
+        System.out.printf("%s not found.", email);
+        return;
+    }
+
+	
+}
