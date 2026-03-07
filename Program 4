@@ -46,7 +46,7 @@ public class Main {
     static void add(){
         //if contact is full, print "Out of memory"
         if (count == 10){
-            System.out.print("Out of memory");
+            System.out.print("Out of memory\n");
             return;
         }
         //otherwise, prompt for email, first, last name
@@ -100,13 +100,10 @@ public class Main {
                     
                     return;
                 }
-                
-                else{
-                    System.out.printf("%s is not found\n", email);
-                    return;
-                }
             }
         }
+        System.out.printf("%s is not found\n", email);
+        return;
     }
     
     static boolean contains(String email){
@@ -147,6 +144,7 @@ public class Main {
                     contacts[i][0] = null;
                     contacts[i][1] = null;
                     contacts[i][2] = null;
+                    count--;
                     return;
                 }else{
                     contacts[i][0] = contacts[i+1][0];
@@ -158,6 +156,4 @@ public class Main {
         System.out.printf("%s not found.", email);
         return;
     }
-
-	
 }
